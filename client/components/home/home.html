@@ -1,0 +1,66 @@
+<div class="container index-page">
+    <h4>Enter Stack Information</h4>
+    <hr class="slim">
+    <div class="row form-group">
+        <label class="control-label col-md-2">Stack Name</label>
+        <div class="col-md-3">
+            <input class="form-control" ng-model="req.stackName" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="control-label col-md-2">Hook Name</label>
+        <div class="col-md-3">
+            <input class="form-control" ng-model="req.hookName" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="control-label col-md-2">Template URL</label>
+        <div class="col-md-8">
+            <input class="form-control" ng-model="req.templateUrl" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <button class="btn btn-sm btn-primary" ng-click="submitData()" style="margin-left: 15px;">Create Stack</button>
+        <button class="btn btn-sm btn-default" ng-click="getStackStatus()" style="margin-left: 15px;">Refresh Status</button>
+    </div>
+    <div class="row form-group" ng-if="res.data">
+        <label class="control-label col-md-2">Request Id</label>
+        <div class="col-md-3">
+            {{res.data.ResponseMetadata.RequestId}}
+        </div>
+        <label class="control-label col-md-2">Stack Id</label>
+        <div class="col-md-3">
+            {{res.data.StackId}}
+        </div>
+    </div>
+    <div class="table-body">
+        <table ng-if="stackStatus.StackEvents">
+            <col width="12%">
+            <col width="15%">
+            <col width="20%">
+            <col width="15%">
+            <col width="15%">
+            <tbody>
+                <tr><th>Time [{{stackStatus.StackEvents[0].Timestamp | date:'d MMM yyyy'}}]</th><th>Status</th><th>Type</th><th>Logical ID</th><th>Status Reason</th></tr>
+                <tr ng-repeat="events in stackStatus.StackEvents">
+                    <td>
+                        <span class="editable-text">{{events.Timestamp | date:'HH:mm:ss.sss UTCZ'}}</span>
+                    </td>
+                    <td ng-class="{'amber': events.ResourceStatus.indexOf('IN_PROGRESS') > 0, 'green': events.ResourceStatus.indexOf('COMPLETE') > 0, 'red': events.ResourceStatus.indexOf('FAIL') > 0}">
+                        <span class="editable-text">{{events.ResourceStatus}}</span>
+                    </td>
+                    <td>
+                        <span class="editable-text">{{events.ResourceType}}</span>
+                    </td>
+                    <td>
+                        <span class="editable-text">{{events.LogicalResourceId}}</span>
+                    </td>
+                    <td>
+                        <span class="editable-text">{{events.ResourceStatusReason}}</span>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
