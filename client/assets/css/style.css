@@ -29,6 +29,14 @@ a {
   font-weight: 600;
 }
 
+.no-padding {
+  padding: 0 !important;
+}
+
+.stack-data {
+  margin-top: 20px;
+}
+
 label.control-label {
   font-size: 12px;
   font-weight: 600;
@@ -65,6 +73,7 @@ hr.x-slim {
 .table-body {
   text-align: left;
   font-size: 10px;
+  margin-top: 20px;
 }
 
 .table-body .btn-slim-text {
@@ -88,7 +97,8 @@ hr.x-slim {
   font-size: 12px;
   text-align: left;
   /* width: 80%; */
-  margin: 35px 0px 0px 10px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .table-body .edit-store-name .btn-default {

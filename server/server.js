@@ -112,7 +112,7 @@ app.post('/aws/stack', function(req, res, next){
 });
 
 
-app.get('/aws/stack/:stackName', function(req, res, next){
+app.get('/aws/stack/events/:stackName', function(req, res, next){
   
   var stackName = req.params.stackName;
   var params = {
@@ -120,6 +120,26 @@ app.get('/aws/stack/:stackName', function(req, res, next){
   };
   console.log("Fetching Stack Status");
   cloudformation.describeStackEvents(params, function(err, data) {
+    if (err) {
+      console.log(err, err.stack); // an error occurred
+      res.status(500).send("Failure");
+    }
+    else {
+      console.log(data);           // successful response
+      res.send(data);
+    }
+  });
+});
+
+
+app.get('/aws/stacks/:stackName', function(req, res, next){
+  
+  var stackName = req.params.stackName;
+  var params = {
+    StackName: stackName
+  };
+  console.log("Fetching Stack Status");
+  cloudformation.describeStacks(params, function(err, data) {
     if (err) {
       console.log(err, err.stack); // an error occurred
       res.status(500).send("Failure");

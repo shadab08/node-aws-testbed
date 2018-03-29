@@ -21,28 +21,33 @@
     </div>
     <div class="row form-group">
         <button class="btn btn-sm btn-primary" ng-click="submitData()" style="margin-left: 15px;">Create Stack</button>
-        <button class="btn btn-sm btn-default" ng-click="getStackStatus()" style="margin-left: 15px;">Refresh Status</button>
+        <button class="btn btn-sm btn-default" ng-click="refreshStackStatus()" style="margin-left: 15px;">Refresh Status</button>
     </div>
-    <div class="row form-group" ng-if="res.data">
-        <label class="control-label col-md-2">Request Id</label>
-        <div class="col-md-3">
-            {{res.data.ResponseMetadata.RequestId}}
-        </div>
-        <label class="control-label col-md-2">Stack Id</label>
-        <div class="col-md-3">
-            {{res.data.StackId}}
+
+    <div class="stack-data" ng-if="stack">
+        <hr class="slim">
+        <div class="row form-group">
+            <label class="control-label col-md-1">Request Id</label>
+            <div class="col-md-4 no-padding">
+                {{stack.ResponseMetadata.RequestId}}
+            </div>
+            <label class="control-label col-md-1 no-padding">Publisher URL</label>
+            <div class="col-md-6 no-padding">
+                {{stackData.publisherURL}}
+            </div>
         </div>
     </div>
-    <div class="table-body">
-        <table ng-if="stackStatus.StackEvents">
+    <hr class="slim">
+    <div class="table-body" ng-if="stack">
+        <table ng-if="stack.StackEvents">
             <col width="12%">
             <col width="15%">
             <col width="20%">
             <col width="15%">
             <col width="15%">
             <tbody>
-                <tr><th>Time [{{stackStatus.StackEvents[0].Timestamp | date:'d MMM yyyy'}}]</th><th>Status</th><th>Type</th><th>Logical ID</th><th>Status Reason</th></tr>
-                <tr ng-repeat="events in stackStatus.StackEvents">
+                <tr><th>Time [{{stack.StackEvents[0].Timestamp | date:'d MMM yyyy'}}]</th><th>Status</th><th>Type</th><th>Logical ID</th><th>Status Reason</th></tr>
+                <tr ng-repeat="events in stack.StackEvents">
                     <td>
                         <span class="editable-text">{{events.Timestamp | date:'HH:mm:ss.sss UTCZ'}}</span>
                     </td>
